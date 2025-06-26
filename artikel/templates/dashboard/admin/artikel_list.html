@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-12">
+  <div class="card">
+    <!-- Card header -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Daftar Artikel</h4>
+      <a class="btn btn-outline-warning" href="{% url 'admin_artikel_tambah' %}">+ Tambah</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-flush" id="datatable-search">
+        <thead class="thead-light">
+          <tr>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Kategori</th>
+            <th>Status</th>
+            <th>Gambar</th>
+            <th class="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for artikel in artikel %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ artikel.judul }}</td>
+            <td>{{ artikel.kategori.nama }}</td>
+            <td>
+              {% if artikel.status %}
+                <span class="badge bg-success">Aktif</span>
+              {% else %}
+                <span class="badge bg-secondary">Nonaktif</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if artikel.gambar %}
+                <img src="{{ artikel.gambar.url }}" width="80" height="50">
+              {% else %}
+                <em>Tidak ada</em>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              <a class="btn btn-sm btn-warning" href="{% url 'admin_artikel_update' artikel.id %}">Edit</a>
+              <a class="btn btn-sm btn-danger" href="{% url 'admin_artikel_delete' artikel.id %}" onclick="return confirm('Yakin ingin menghapus artikel ini?')">Hapus</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center text-muted">Tidak ada artikel ditemukan.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'dashboard/assets/js/plugins/datatables.js' %}"></script>
+<script>
+  const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+    searchable: true,
+    fixedHeight: true
+  });
+</script>
+{% endblock %}

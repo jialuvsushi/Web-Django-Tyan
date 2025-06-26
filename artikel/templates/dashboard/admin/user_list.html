@@ -1,0 +1,62 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-12">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Daftar User</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-flush" id="datatable-search">
+        <thead class="thead-light">
+          <tr>
+            <th>No</th>
+            <th>Username</th>
+            <th>Nama Lengkap</th>
+            <th>is staff</th>
+            <th>Groups</th>
+            <th class="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in daftar_user %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.username }}</td>
+            <td style="color: pink;">{{ user.first_name|default:"-" }} {{ user.last_name|default:"-" }}</td>
+            <td>{{ user.is_staff }}</td>
+            <td>
+              {% for group in user.groups.all %}
+                <span class="badge badge-dark">{{ group.name }}</span>
+              {% empty %}
+                <span class="badge badge-secondary">Tidak ada</span>
+              {% endfor %}
+            </td>
+            <td class="text-center">
+              <!-- ✅ Edit button fixed -->
+              <a class="btn btn-sm btn-warning" href="{% url 'admin_management_user_edit' user.id %}">Edit</a>
+              <a class="btn btn-sm btn-danger" href="#" onclick="return confirm('Yakin ingin menghapus user ini?')">Hapus</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center text-muted">Tidak ada user ditemukan.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'dashboard/assets/js/plugins/datatables.js' %}"></script>
+<script>
+  const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+    searchable: true,
+    fixedHeight: true
+  });
+</script>
+{% endblock %}

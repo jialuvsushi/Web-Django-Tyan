@@ -1,0 +1,53 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="col-12">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Daftar Kategori</h4>
+      <a class="btn btn-outline-warning" href="{% url 'admin_kategori_tambah' %}">+ Tambah</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-flush" id="datatable-search">
+        <thead class="thead-light">
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Created At</th>
+            <th>Created By</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for kat in kategori %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ kat.nama }}</td>
+            <td>{{ kat.created_at }}</td>
+            <td>{{ kat.created_by }}</td>
+            <td class="text-center">
+              <a class="btn btn-warning btn-sm" href="{% url 'admin_kategori_update' kat.id %}">Edit</a>
+              <a class="btn btn-danger btn-sm" href="{% url 'admin_kategori_delete' kat.id %}">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="text-center">Tidak ada kategori ditemukan.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'dashboard/assets/js/plugins/datatables.js' %}"></script>
+<script>
+  const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+    searchable: true,
+    fixedHeight: true
+  })
+</script>
+{% endblock %}

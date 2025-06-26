@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+{% block css %}
+{% endblock %}
+<div class="col-12">
+  <div class="card">
+    <!-- Card header -->
+    <div class="card-header">
+      <h5 class="mb-0">Daftar Artikel <br><br>
+        <a class="btn btn-outline-warning" href="{% url 'artikel_tambah' %}">+ Tambah</a>
+      </h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-flush" id="datatable-search">
+        <thead class="thead-light">
+          <tr>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Kategori</th>
+            <th>Dibuat oleh</th>
+            <th>Tanggal</th>
+            <th class="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for artikel in artikel_list %}
+<tr>
+  <td class="text-sm font-weight-normal">{{ forloop.counter }}</td>
+  <td class="text-sm font-weight-normal">{{ artikel.judul }}</td>
+  <td class="text-sm font-weight-normal">{{ artikel.kategori }}</td>
+  <td class="text-sm font-weight-normal">{{ artikel.created_by }}</td>
+  <td class="text-sm font-weight-normal">{{ artikel.created_at|date:"d M Y" }}</td>
+  <td class="text-sm font-weight-normal text-center">
+    <a class="btn btn-warning" href="{% url 'artikel_update' artikel.id %}">Edit</a>
+    <a class="btn btn-danger" href="{% url 'artikel_delete' artikel.id %}">Hapus</a>
+  </td>
+</tr>
+{% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'dashboard/assets/js/plugins/datatables.js' %}"></script>
+<script>
+  const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+    searchable: true,
+    fixedHeight: true
+  })
+</script>
+{% endblock %}

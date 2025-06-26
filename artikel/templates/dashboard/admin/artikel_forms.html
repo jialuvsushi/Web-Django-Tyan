@@ -1,0 +1,52 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row mt-4">
+  <div class="col-lg-9 col-12 mx-auto position-relative">
+    <div class="card">
+      <div class="card-header p-3 pt-2">
+        <div class="icon icon-lg icon-shape bg-gradient-dark shadow text-center border-radius-xl mt-n4 me-3 float-start">
+          <i class="material-icons opacity-10">article</i>
+        </div>
+        <h6 class="mb-0">Form Artikel</h6>
+      </div>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-body pt-2">
+          <div class="mb-3">
+            <label class="form-label">Judul</label>
+            {{ form.judul }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Konten</label>
+            {{ form.konten }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Gambar</label>
+            {{ form.gambar }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Kategori</label>
+            {{ form.kategori }}
+          </div>
+          <div class="form-check form-switch mb-3">
+            {{ form.status }}
+            <label class="form-check-label">Status</label>
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn bg-gradient-dark m-0 ms-2">Simpan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+  <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

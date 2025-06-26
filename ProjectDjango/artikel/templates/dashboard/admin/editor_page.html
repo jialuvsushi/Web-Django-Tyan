@@ -1,0 +1,51 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/themes/lark.css">
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card p-4">
+      <h5 class="mb-4">Editor Artikel</h5>
+      <div id="editor-container">
+        <p>Tulis artikelmu di sini...</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<!-- CKEditor 5 Full Build with Image Upload etc -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    ClassicEditor
+      .create(document.querySelector('#editor-container'), {
+        toolbar: {
+          items: [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'bulletedList', 'numberedList', 'blockQuote', '|',
+            'link', 'insertTable', 'uploadImage', 'mediaEmbed', '|',
+            'undo', 'redo'
+          ]
+        },
+        image: {
+          toolbar: ['imageTextAlternative', 'imageStyle:inline', 'imageStyle:block', 'imageStyle:side']
+        },
+        table: {
+          contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+        }
+      })
+      .then(editor => {
+        window.editor = editor;  // simpan global kalau mau ambil value
+      })
+      .catch(error => {
+        console.error('CKEditor Error:', error);
+      });
+  });
+</script>
+{% endblock %}
