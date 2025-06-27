@@ -22,18 +22,16 @@ DEBUG = False
 ALLOWED_HOSTS = ['web-django-tyan-production.up.railway.app', '127.0.0.1', 'localhost']
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'whitenoise.runserver_nostatic',
 
     # Apps buatan sendiri
     'artikel',
