@@ -17,7 +17,8 @@ SECRET_KEY = 'django-insecure-b&um#gnqq$ehes29#wld-da@ki95_hg$1mp-p7hp4zv68^rutv
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['web-django-tyan-production.up.railway.app']
+ALLOWED_HOSTS = ['web-django-tyan-production.up.railway.app', '127.0.0.1', 'localhost']
+
 
 
 # Application definition
