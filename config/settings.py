@@ -15,9 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-b&um#gnqq$ehes29#wld-da@ki95_hg$1mp-p7hp4zv68^rutv'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web-django-tyan-production.up.railway.app']
 
 
 # Application definition
