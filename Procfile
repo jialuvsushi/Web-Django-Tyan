@@ -1,2 +1,1 @@
-release: python manage.py makemigrations --merge
-web: python manage.py runserver 0.0.0.0:$PORT
+web: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
