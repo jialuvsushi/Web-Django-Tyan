@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from artikel import views
-from Projectku.authentication import login, logout, registrasi
+from config.authentication import login, logout, registrasi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
