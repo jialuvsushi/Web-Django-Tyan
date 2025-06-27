@@ -17,7 +17,6 @@ urlpatterns = [
     path('artikel_list/', views.artikel_list, name='artikel_list'),
 
     # Dashboard dan artikel
-    path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/', include('artikel.urls')),  
 
     # Auth
