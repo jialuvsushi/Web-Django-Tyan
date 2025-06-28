@@ -1,7 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve  # <– ini penting untuk production
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from artikel import views
@@ -23,13 +24,18 @@ urlpatterns = [
     path('auth-login/', login, name='login'),
     path('auth-logout/', logout, name='logout'),
     path('auth-registrasi/', registrasi, name='registrasi'),
-
-    # CKEditor 
-    # path('ckeditor/', include('ckeditor_uploader.urls')),  
 ]
 
-# Untuk development (akses media dan static file)
+# Untuk staticfiles
 urlpatterns += staticfiles_urlpatterns()
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Untuk media files (berfungsi saat DEBUG = False)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Tambahan agar media tetap serve di production (Railway)
+if not settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]
