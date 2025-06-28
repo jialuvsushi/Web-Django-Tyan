@@ -26,13 +26,10 @@ urlpatterns = [
     path('auth-registrasi/', registrasi, name='registrasi'),
 ]
 
-# Untuk staticfiles
 urlpatterns += staticfiles_urlpatterns()
 
-# Untuk media files (berfungsi saat DEBUG = False)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# Tambahan agar media tetap serve di production (Railway)
 if not settings.DEBUG:
     urlpatterns += [
         re_path(r'^media/(?P<path>.*)$', serve, {
